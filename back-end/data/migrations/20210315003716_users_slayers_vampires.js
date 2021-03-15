@@ -9,7 +9,7 @@ exports.up = function(knex) {
     tbl.increments('vampireID');
     tbl.string('vampireName').unique().notNullable();
     tbl.string('vampireWeakness').notNullable();
-    tbl.string('vampireAge').notNullable();
+    tbl.integer('vampireAge').notNullable();
 })
 .createTable('slayers', tbl => {
     tbl.increments('slayerID');
@@ -20,5 +20,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  
+  return knex.dropTableIfExists('slayers').dropTableIfExists('vampires').dropTableIfExists('user')
 };
