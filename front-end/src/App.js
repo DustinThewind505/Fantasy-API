@@ -1,23 +1,28 @@
+import { Route, NavLink } from 'react-router-dom';
+
 import logo from './logo.svg';
 import './App.css';
 
+import Slayers from './components/Slayers/slayers';
+import Vampires from './components/Vampires/vampires';
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app-container">
+      <header>
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div>
+          <h1>Fantasy API</h1>
+          <ul>
+            <li><NavLink to='/'>Home</NavLink></li>
+            <li><NavLink to='/slayers'>Slayers</NavLink></li>
+            <li><NavLink to='/vampires'>Vampires</NavLink></li>
+          </ul>
+        </div>
+        <img src={logo} className="App-logo" alt="logo" />
       </header>
+      <Route path='/vampires' component={Vampires} />
+      <Route path='/slayers' component={Slayers} />
     </div>
   );
 }
