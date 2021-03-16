@@ -8,7 +8,7 @@ function SlayerCard({ slayerProps }) {
 
 
     return(
-        <div>
+        <div className='characterCard'>
             <h3>Name: {slayerProps.slayerName}</h3>
             <p>Weapon: {slayerProps.slayerWeapon}</p>
             <p>Nemesis: {slayerProps.vampireName}</p>

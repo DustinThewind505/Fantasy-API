@@ -3,8 +3,8 @@ import { Route, NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
-import Slayers from './components/Slayers/slayers';
-import Vampires from './components/Vampires/vampires';
+import { Slayers } from './components/Slayers';
+import { Vampires } from './components/Vampires';
 
 function App() {
   return (

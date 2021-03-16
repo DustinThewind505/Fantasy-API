@@ -24,8 +24,10 @@ function SlayersList(props) {
     // ========== COMPONENT ==========
     return (
         <div>
-            <h2>Slayers List</h2>
+            <h2>Slayers 🐱‍👤</h2>
+            <section className='cardContainer'>
             {slayers.map(slayer => <SlayerCard key={slayer.slayerID} slayerProps={slayer} />)}
+            </section>
         </div>
     )
 }

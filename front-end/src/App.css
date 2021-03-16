@@ -40,3 +40,25 @@ header ul {
 body {
   text-align: center;
 }
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  background-color: lightcoral;
+}
+
+.characterCard {
+  width: 48%;
+  min-height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 1% 0;
+  background-color: lightseagreen;
+}
+
+.characterCard:hover {
+  color: firebrick;
+  background-color: black;
+}

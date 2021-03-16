@@ -23,8 +23,10 @@ function VampireList(props) {
     // ========== COMPONENT ==========
     return (
         <div>
-            <h2>Vampires List</h2>
+            <h2>Vampires ☠</h2>
+            <section className='cardContainer'>
             {vampires.map(vampire => <VampireCard key={vampire.vampireID} vampireProps={vampire} />)}
+            </section>
         </div>
     )
 }
