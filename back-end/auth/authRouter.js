@@ -1,15 +1,17 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
+const restricted = require('./restrictedMiddleware');
 const User = require('../api/Users/usersModel');
 
 const router = express.Router();
 
-router.get('/users', (req, res) => {
+router.get('/users', restricted, (req, res) => {
     User.findAllUsers()
     .then(usersArray => {
         if(usersArray.length > 0) {
-            res.status(200).json(usersArray)
+            res.status(200).json({usersArray, jwt: req.jwt})
         } else {
             res.status(404).json({errorMessage: 'Could not find users'})
         }
@@ -47,7 +49,8 @@ router.post('/login', (req, res) => {
     User.findUserBy({username}).first()
     .then(user => {
         if(user && bcrypt.compareSync(password, user.password)) {
-            res.status(200).json(user)
+            const token = createJWT(user)
+            res.status(200).json({user, token})
         } else {
             res.status(401).json({errorMessage: 'username or password is incorrect'})
         }
@@ -57,5 +60,21 @@ router.post('/login', (req, res) => {
     })
 
 })
+
+function createJWT(obj) {
+    const payload = {
+        userID: obj.userID,
+        username: obj.username,
+        userRole: obj.userRole
+    }
+
+    const secret = process.env.JWT_SECRET || 'Lambda';
+
+    const options = {
+        expiresIn: '1hr'
+    }
+
+    return jwt.sign(payload, secret, options)
+}
 
 module.exports = router;
