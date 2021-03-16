@@ -12,7 +12,7 @@ module.exports = {
 }
 
 function findAllSlayers() {
-    return db('slayers')
+    return db('slayers').join('vampires', 'slayers.vampireID', '=', 'vampires.vampireID').select('slayerID', 'slayerName', 'slayerWeapon', 'vampireName')
 }
 
 function findSlayerBy(filter) {
