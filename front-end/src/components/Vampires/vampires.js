@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+// import { Route } from 'react-router-dom';
 
-import VampireCard from './vampireCard';
+import { VampireCard } from '../Vampires';
 
-function VampireList(props) {
+function VampireList({ vampires, setVampires }) {
     // ========== STATE ==========
-    const [vampires, setVampires] = useState([])
     const [formData, setFormData] = useState({
         vampireName: '',
         vampireWeakness: '',
@@ -13,23 +13,20 @@ function VampireList(props) {
     })
 
     // ========== FUNCTIONS ==========
-    useEffect(() => {
-        axios.get('http://localhost:8001/vampires')
-            .then(res => {
-                console.log(res.data)
-                setVampires(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
         axios.post('http://localhost:8001/vampires', formData)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+            .then(res => {
+                axios.get('http://localhost:8001/vampires')
+                    .then(res => {
+                        setVampires(res.data)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            })
+            .catch(err => console.log(err))
 
         setFormData({
             vampireName: '',
