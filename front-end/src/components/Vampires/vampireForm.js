@@ -51,10 +51,10 @@ function VampireForm({ vampires, setVampires }) {
     // ========== COMPONENT ==========
     return (
         <div>
-            <header>
+            
+            <div>
                 <Link to='/vampires'>⬅return</Link><h2>Vampire Form</h2>
-            </header>
-
+            </div>
             <form onSubmit={handleSubmit}>
                 <p>/PUT request</p>
                 <label>
@@ -68,6 +68,7 @@ function VampireForm({ vampires, setVampires }) {
                 </label>
                 <button>Update Vampire</button>
             </form>
+            
         </div>
     )
 }
