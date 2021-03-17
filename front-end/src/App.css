@@ -41,6 +41,25 @@ body {
   text-align: center;
 }
 
+form {
+  width: 25%;
+  min-height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1% auto;
+  background-color: forestgreen;
+}
+
+form input {
+  margin: 1% 0;
+}
+
+form button {
+  width: 75%;
+  margin: 0 auto;
+}
+
 .cardContainer {
   display: flex;
   flex-wrap: wrap;

@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 
 
 function VampireCard({ vampireProps }) {
+    // ========== STATE ==========
+    
+
+    // ========== FUNCTIONS ==========
 
 
-
-
+    // ========== COMPONENT ==========
     return(
         <div className='characterCard'>
             <h3>Name: {vampireProps.vampireName}</h3>
