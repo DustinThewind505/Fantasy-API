@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 
 
 function SlayerCard({ slayerProps }) {
@@ -12,6 +12,7 @@ function SlayerCard({ slayerProps }) {
             <h3>Name: {slayerProps.slayerName}</h3>
             <p>Weapon: {slayerProps.slayerWeapon}</p>
             <p>Nemesis: {slayerProps.vampireName}</p>
+            <footer><Link to={`/slayers/${slayerProps.slayerID}`}>Edit</Link></footer>
         </div>
     )
 }

@@ -47,7 +47,9 @@ function App() {
       <Route path='/vampires/:id'>
         <VampireForm vampires={vampires} setVampires={setVampires} />
       </Route>
-      <Route path='/slayers' component={Slayers} />
+      <Route exact path='/slayers' >
+        <Slayers vampires={vampires} />
+      </Route>
     </div>
   );
 }
