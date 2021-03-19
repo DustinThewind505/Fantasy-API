@@ -5,12 +5,13 @@ import { Route, NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
-import { Slayers } from './components/Slayers';
+import { Slayers, SlayersForm } from './components/Slayers';
 import { Vampires, VampireForm } from './components/Vampires';
 
 function App() {
   // ========== STATE ==========
   const [vampires, setVampires] = useState([])
+  const [slayers, setSlayers] = useState([])
 
 
   // ========== FUNCTIONS ==========
@@ -22,6 +23,14 @@ function App() {
       .catch(err => {
         console.log(err)
       })
+
+      axios.get('http://localhost:8001/slayers')
+            .then(res => {
+                setSlayers(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
   }, [])
 
 
@@ -48,7 +57,10 @@ function App() {
         <VampireForm vampires={vampires} setVampires={setVampires} />
       </Route>
       <Route exact path='/slayers' >
-        <Slayers vampires={vampires} />
+        <Slayers vampires={vampires} slayers={slayers} setSlayers={setSlayers} />
+      </Route>
+      <Route exact path='/slayers/:id' >
+        <SlayersForm vampires={vampires} slayers={slayers} setSlayers={setSlayers} />
       </Route>
     </div>
   );

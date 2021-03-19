@@ -9,7 +9,7 @@ function VampireList({ vampires, setVampires }) {
     const [formData, setFormData] = useState({
         vampireName: '',
         vampireWeakness: '',
-        vampireAge: null
+        vampireAge: undefined
     })
 
     // ========== FUNCTIONS ==========
@@ -53,13 +53,13 @@ function VampireList({ vampires, setVampires }) {
             <form onSubmit={handleSubmit}>
                 <p>/POST request</p>
                 <label>
-                    <input type='text' name='vampireName' placeholder='name' onChange={handleChange} required />
+                    <input type='text' name='vampireName' placeholder='name' value={formData.vampireName} onChange={handleChange} required />
                 </label>
                 <label>
-                    <input type='text' name='vampireWeakness' placeholder='weakness' onChange={handleChange} required />
+                    <input type='text' name='vampireWeakness' placeholder='weakness' value={formData.vampireWeakness} onChange={handleChange} required />
                 </label>
                 <label>
-                    <input type='number' name='vampireAge' placeholder='age' onChange={handleChange} required />
+                    <input type='number' name='vampireAge' placeholder='age' value={formData.vampireAge} onChange={handleChange} required />
                 </label>
                 <button>Add Vampire</button>
             </form>
