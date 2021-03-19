@@ -24,18 +24,18 @@ function App() {
         console.log(err)
       })
 
-      axios.get('http://localhost:8001/slayers')
-            .then(res => {
-                setSlayers(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+    axios.get('http://localhost:8001/slayers')
+      .then(res => {
+        setSlayers(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }, [])
 
 
 
-// ========== COMPONENT ==========
+  // ========== COMPONENT ==========
   return (
     <div className="app-container">
       <header>

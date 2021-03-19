@@ -14,14 +14,12 @@ function Slayers({ vampires, slayers, setSlayers }) {
     })
 
 
-
     // ========== FUNCTIONS ==========
     const handleSubmit = e => {
         e.preventDefault();
 
         axios.post('http://localhost:8001/slayers', formData)
             .then(count => {
-                console.log(count.config.data)
                 axios.get('http://localhost:8001/slayers')
                     .then(res => {
                         setSlayers(res.data);
@@ -30,7 +28,6 @@ function Slayers({ vampires, slayers, setSlayers }) {
                             slayerWeapon: '',
                             vampireID: ''
                         });
-
                     })
                     .catch(err => {
                         console.log(err)
@@ -49,10 +46,6 @@ function Slayers({ vampires, slayers, setSlayers }) {
 
         setFormData(newSlayer)
     }
-
-
-
-
 
 
     // ========== COMPONENT ==========

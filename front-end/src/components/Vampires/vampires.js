@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 
-import { VampireCard } from '../Vampires';
+import VampireCard from './vampireCard';
+
 
 function VampireList({ vampires, setVampires }) {
     // ========== STATE ==========
@@ -11,6 +12,7 @@ function VampireList({ vampires, setVampires }) {
         vampireWeakness: '',
         vampireAge: undefined
     })
+
 
     // ========== FUNCTIONS ==========
     const handleSubmit = (e) => {
@@ -31,17 +33,18 @@ function VampireList({ vampires, setVampires }) {
                         console.log(err)
                     })
             })
-            .catch(err => console.log(err))
-
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     const handleChange = e => {
-        const newFormData = {
+        const newVampire = {
             ...formData,
             [e.target.name]: e.target.value
         }
 
-        setFormData(newFormData)
+        setFormData(newVampire)
     }
 
 
@@ -49,7 +52,6 @@ function VampireList({ vampires, setVampires }) {
     return (
         <div>
             <h2>Vampires ☠</h2>
-            
             <form onSubmit={handleSubmit}>
                 <p>/POST request</p>
                 <label>
@@ -66,7 +68,6 @@ function VampireList({ vampires, setVampires }) {
             <section className='cardContainer'>
                 {vampires.map(vampire => <VampireCard key={vampire.vampireID} vampires={vampire} setVampires={setVampires} />)}
             </section>
-           
         </div>
     )
 }

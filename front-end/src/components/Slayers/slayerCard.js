@@ -1,29 +1,31 @@
-import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 
-function SlayerCard({ slayer, setSlayers}) {
-
-const handleDelete = e => {
-    axios.delete(`http://localhost:8001/slayers/${slayer.slayerID}`)
-    .then(count => {
-        axios.get('http://localhost:8001/slayers')
-        .then(res => {
-            setSlayers(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    })
-    .catch(err => {
-        console.log(err)
-    })
-}
+function SlayerCard({ slayer, setSlayers }) {
+    // ========== STATE ==========
 
 
+    // ========== FUNCTIONS ==========
+    const handleDelete = e => {
+        axios.delete(`http://localhost:8001/slayers/${slayer.slayerID}`)
+            .then(count => {
+                axios.get('http://localhost:8001/slayers')
+                    .then(res => {
+                        setSlayers(res.data)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
-    return(
+
+    // ========== COMPONENT ==========
+    return (
         <div className='characterCard'>
             <h3>Name: {slayer.slayerName}</h3>
             <p>Weapon: {slayer.slayerWeapon}</p>

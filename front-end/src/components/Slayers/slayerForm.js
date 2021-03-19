@@ -6,9 +6,9 @@ import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 function SlayerForm({ vampires, slayers, setSlayers }) {
     const { params } = useRouteMatch();
     const history = useHistory();
-    
+
     const foundSlayer = slayers.find(slayer => slayer.slayerID === parseInt(params.id))
-    
+
     // ========== STATE ==========
     const [formData, setFormData] = useState({
         slayerName: foundSlayer.slayerName,
@@ -16,7 +16,7 @@ function SlayerForm({ vampires, slayers, setSlayers }) {
         vampireID: foundSlayer.vampireID
     })
 
-    console.log(formData)
+
     // ========== FUNCTIONS ==========
     const handleSubmit = e => {
         e.preventDefault();
@@ -26,7 +26,6 @@ function SlayerForm({ vampires, slayers, setSlayers }) {
                 console.log(count.config)
                 axios.get('http://localhost:8001/slayers')
                     .then(res => {
-                        console.log(res.data)
                         setSlayers(res.data)
                     })
                     .catch(err => {
@@ -34,7 +33,7 @@ function SlayerForm({ vampires, slayers, setSlayers }) {
                     })
             })
             .catch(err => console.log(err.message))
-        
+
         history.push('/slayers')
     }
 
@@ -51,7 +50,7 @@ function SlayerForm({ vampires, slayers, setSlayers }) {
     // ========== COMPONENT ==========
     return (
         <div>
-            
+
             <div>
                 <Link to='/slayers'>⬅return</Link><h2>Slayers Form</h2>
             </div>
@@ -71,7 +70,7 @@ function SlayerForm({ vampires, slayers, setSlayers }) {
                 </label>
                 <button>Update Slayer</button>
             </form>
-            
+
         </div>
     )
 }

@@ -8,7 +8,7 @@ function VampireForm({ vampires, setVampires }) {
     const history = useHistory();
     
     const foundVampire = vampires.find(vampire => vampire.vampireID === parseInt(params.id))
-    console.log(foundVampire)
+
     // ========== STATE ==========
     const [formData, setFormData] = useState({
         vampireName: foundVampire.vampireName,
@@ -26,7 +26,6 @@ function VampireForm({ vampires, setVampires }) {
                 console.log(count.config)
                 axios.get('http://localhost:8001/vampires')
                     .then(res => {
-                        console.log(res.data)
                         setVampires(res.data)
                     })
                     .catch(err => {
