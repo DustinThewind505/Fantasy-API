@@ -76,7 +76,7 @@ function Slayers({ vampires, slayers, setSlayers }) {
                 <button>Add Slayer</button>
             </form>
             <section className='cardContainer'>
-                {slayers.map(slayer => <SlayerCard key={slayer.slayerID} slayerProps={slayer} />)}
+                {slayers.map(slayer => <SlayerCard key={slayer.slayerID} slayer={slayer} setSlayers={setSlayers} />)}
             </section>
         </div>
     )
