@@ -5,6 +5,7 @@ import { Route, NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
+import { RegisterForm } from './components/Auth';
 import { Slayers, SlayersForm } from './components/Slayers';
 import { Vampires, VampireForm } from './components/Vampires';
 
@@ -50,6 +51,9 @@ function App() {
         </div>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
+      <Route exact path='/' >
+        <RegisterForm />
+      </Route>
       <Route exact path='/vampires' >
         <Vampires vampires={vampires} setVampires={setVampires} />
       </Route>
