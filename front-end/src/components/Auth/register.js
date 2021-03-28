@@ -4,42 +4,53 @@ import axios from 'axios';
 
 function RegisterForm() {
     // ========== STATE ==========
-    const [message, setMessage] = useState();
-    const [roles, setRoles] = useState();
+    const [users, setUsers] = useState([]);
+    const [roles, setRoles] = useState([]);
     const [formData, setFormData] = useState({
         username: '',
         password: '',
-        role: ''
+        userRole: ''
     })
 
     // ========== FUNCTIONS ==========
     useEffect(() => {
 
-        // axios.get('http://localhost:8001/auth/users')
-        // .then(res => {
-        //     console.log(res.data)
-        //     // setMessage(res.data)
-        // })
-        // .catch(err => {
-        //     console.log('The Error ====>', err)
-        // })
-
+        axios.get('http://localhost:8001/auth/users')
+            .then(res => {
+                console.log(res.data)
+                setUsers(res.data)
+            })
+            .catch(err => {
+                console.log('The Error ====>', err)
+            })
 
         axios.get('http://localhost:8001/auth/roles')
-        .then(rolesArray => {
-            // console.log(rolesArray.data)
-            setRoles(rolesArray.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+            .then(rolesArray => {
+                setRoles(rolesArray.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
     }, [])
 
     const handleSubmit = e => {
         e.preventDefault();
 
-
+        axios.post('http://localhost:8001/auth/register', formData)
+            .then(count => {
+                axios.get('http://localhost:8001/auth/users')
+                    .then(res => {
+                        console.log(res.data)
+                        setUsers(res.data)
+                    })
+                    .catch(err => {
+                        console.log('The Error ====>', err)
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     const handleChange = e => {
@@ -51,10 +62,9 @@ function RegisterForm() {
         setFormData(newFormState)
     }
 
-    console.log(roles)
 
     // ========== COMPONENT ==========
-    return(
+    return (
         <div>
             <h2>Register Form component</h2>
             <form onSubmit={handleSubmit}>
@@ -62,15 +72,23 @@ function RegisterForm() {
                     UserName: <input type='text' name='username' onChange={handleChange} />
                 </label>
                 <label>
-                   Password: <input type='password' name='password' onChange={handleChange} />
+                    Password: <input type='password' name='password' onChange={handleChange} />
                 </label>
-                <select name='role'>
+                <select name='userRole' onChange={handleChange} >
                     <option value=''>== Choose One ==</option>
                     {roles.map(role => <option key={role.roleID} value={role.roleID} >{role.roleName}</option>)}
                 </select>
                 <button type='submit'>Register</button>
             </form>
-            <p>{message}</p>
+            <section className='cardContainer'>
+                {users.map(user =>
+                    <div key={user.userID} className='characterCard'>
+                        <h3>Username: {user.username}</h3>
+                        <p>Password: {user.password}</p>
+                        <p>Role: {user.userRole}</p>
+                    </div>
+                )}
+            </section>
         </div>
     )
 }
