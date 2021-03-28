@@ -3,15 +3,26 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const restricted = require('./restrictedMiddleware');
+const Roles = require('../api/Users/rolesModel');
 const User = require('../api/Users/usersModel');
 
 const router = express.Router();
 
-router.get('/users', restricted, (req, res) => {
+router.get('/roles', (req, res) => {
+    Roles.findAll()
+    .then(rolesArray => {
+        res.status(200).json(rolesArray)
+    })
+    .catch(err => {
+        res.status(500).json({errorMessage: err})
+    })
+})
+
+router.get('/users', (req, res) => {
     User.findAllUsers()
     .then(usersArray => {
         if(usersArray.length > 0) {
-            res.status(200).json({usersArray, jwt: req.jwt})
+            res.status(200).json({usersArray})
         } else {
             res.status(404).json({errorMessage: 'Could not find users'})
         }
@@ -71,7 +82,7 @@ function createJWT(obj) {
     const secret = process.env.JWT_SECRET || 'Lambda';
 
     const options = {
-        expiresIn: '1hr'
+        expiresIn: '120000ms'
     }
 
     return jwt.sign(payload, secret, options)
