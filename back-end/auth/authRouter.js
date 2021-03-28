@@ -22,7 +22,7 @@ router.get('/users', (req, res) => {
     User.findAllUsers()
     .then(usersArray => {
         if(usersArray.length > 0) {
-            res.status(200).json({usersArray})
+            res.status(200).json(usersArray)
         } else {
             res.status(404).json({errorMessage: 'Could not find users'})
         }
