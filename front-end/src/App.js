@@ -5,7 +5,7 @@ import { Route, NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
-import { RegisterForm } from './components/Auth';
+import { RegisterForm, LoginForm } from './components/Auth';
 import { Slayers, SlayersForm } from './components/Slayers';
 import { Vampires, VampireForm } from './components/Vampires';
 
@@ -13,16 +13,29 @@ function App() {
   // ========== STATE ==========
   const [vampires, setVampires] = useState([])
   const [slayers, setSlayers] = useState([])
+  const [cantFind, setCantFind] = useState([])
 
 
   // ========== FUNCTIONS ==========
   useEffect(() => {
-    axios.get('http://localhost:8001/vampires')
+    axios.get('http://localhost:8001/vampires', {
+      headers: {
+        authorization: localStorage.getItem('token')
+      }
+    })
       .then(res => {
         setVampires(res.data)
       })
       .catch(err => {
-        console.log(err)
+        console.error("Cant find vampires", err)
+        axios.get('http://localhost:8000')
+          .then(res => {
+            console.log(res)
+            setCantFind(res.data)
+          })
+          .catch(err => {
+            console.error("Cant find data", err)
+          })
       })
 
     axios.get('http://localhost:8001/slayers')
@@ -30,7 +43,7 @@ function App() {
         setSlayers(res.data)
       })
       .catch(err => {
-        console.log(err)
+        console.error("Cant find slayers", err)
       })
   }, [])
 
@@ -52,6 +65,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <Route exact path='/' >
+        <LoginForm />
+      </Route>
+      <Route path='/register' >
         <RegisterForm />
       </Route>
       <Route exact path='/vampires' >
@@ -66,6 +82,13 @@ function App() {
       <Route exact path='/slayers/:id' >
         <SlayersForm vampires={vampires} slayers={slayers} setSlayers={setSlayers} />
       </Route>
+      {cantFind ? cantFind.map(element => {
+        return <div key={element.id}>
+          <strong>{element.name}</strong>
+          <i>{element.description}</i>
+          <ul>{element.price}</ul>
+        </div>
+      }) : null}
     </div>
   );
 }
